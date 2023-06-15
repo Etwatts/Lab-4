@@ -10,13 +10,14 @@ def main():
     log_path = get_file_path_from_cmd_line()
 
     # Use filter_log_by_regex() to investigate the gateway log per Step 5
-    records, captures = filter_log_by_regex(log_path, r'pam', print_summary=True, print_records=True)
+    captures = filter_log_by_regex(log_path, r'pam', print_summary=True, print_records=True)
 
 
-    # TODO: Use filter_log_by_regex() to extract data from the gateway log per Step 6
+    #  Use filter_log_by_regex() to extract data from the gateway log per Step 6
     captures = filter_log_by_regex(log_path, r'SRC(.*?) DST=(.*?) LEN=(.*?) ')[1]
     df = pd.DataFrame(captures)
     df.to_csv('captures.csv', index=False, header=('Source IP ','Destination IP','Length'))
+    
     return
 
 def get_file_path_from_cmd_line(param_num=1):
